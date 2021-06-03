@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/styles/master.css">
+<link rel="stylesheet" href="css/css/all.min.css">
+</head>
+<body>
+	<nav th:replace="layout::navegacion" ></nav>
+	<nav th:replace="layout::menu" ></nav>
+	<nav th:replace="layout::colapso-local" ></nav>
+	<div th:replace="layout::opiniones"></div>
+	<div th:replace="layout::tarjetas"></div>
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+</body>
+</html>
