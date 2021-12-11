@@ -3,13 +3,11 @@ package edu.pe.idat.Model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="producto")  
 public class Producto {
 	@Id
-	private String CodProducto;
+	private String codproducto;
 	
 	@Column(name="Nombre")
 	private String nombre;
@@ -22,17 +20,25 @@ public class Producto {
 	
 	@Column(name="Imagen")
 	private String imagen;
+
+	@Column(name="Tamano")
+	private String tamano;
+	
+	@Column(name="Publico")
+	private String publico;
+	
+	@Column(name="Estado")
+	private String estado;
 	
 	@Column(name="CodCategoria")
 	private String codcategoria;
 
-	
-	public String getCodProducto() {
-		return CodProducto;
+	public String getCodproducto() {
+		return codproducto;
 	}
 
-	public void setCodProducto(String codProducto) {
-		CodProducto = codProducto;
+	public void setCodproducto(String codproducto) {
+		this.codproducto = codproducto;
 	}
 
 	public String getNombre() {
@@ -67,6 +73,30 @@ public class Producto {
 		this.imagen = imagen;
 	}
 
+	public String getTamano() {
+		return tamano;
+	}
+
+	public void setTamano(String tamano) {
+		this.tamano = tamano;
+	}
+
+	public String getPublico() {
+		return publico;
+	}
+
+	public void setPublico(String publico) {
+		this.publico = publico;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	public String getCodcategoria() {
 		return codcategoria;
 	}
@@ -75,12 +105,16 @@ public class Producto {
 		this.codcategoria = codcategoria;
 	}
 
-	public Producto(String nombre, Double preciouni, String detalle, String imagen, String codcategoria) {
+	public Producto(String nombre, Double preciouni, String detalle, String imagen, String tamano, String publico,
+			String estado, String codcategoria) {
 		super();
 		this.nombre = nombre;
 		this.preciouni = preciouni;
 		this.detalle = detalle;
 		this.imagen = imagen;
+		this.tamano = tamano;
+		this.publico = publico;
+		this.estado = estado;
 		this.codcategoria = codcategoria;
 	}
 
@@ -88,7 +122,5 @@ public class Producto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	
 	
 }

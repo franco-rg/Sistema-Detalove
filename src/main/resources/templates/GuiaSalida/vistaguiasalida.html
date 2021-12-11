@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+
+<script type="text/javascript"
+    th:src="@{/script/jsweb/guiasalida/vistaguiasalida.js}"></script>
+    
+<!-- Referencia: Hoja de estilo css -->
+<link rel="stylesheet" type="text/css" th:href="@{/DataTables/datatables.css}"/>
+
+<body>
+	<nav th:replace="layout::navegacion" ></nav>
+	
+	<div class="container-productos">
+    <div class="card">
+        <div class="card-header badge-dark text-center font-weight-bold">GUIASALIDA</div>
+        <div class="card-body">
+
+            <button type="button" id="btnagregarguiasalida" class="btn btnagregarstl">Nueva GuiaSalida<i class="fas fa-plus-circle"></i></button>
+
+            <hr />
+            <table id="tblguiasalida" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">FechaSalida</th>
+                        <th scope="col">Solicitado</th>
+                        <th scope="col">Aprobado</th>
+                        <th scope="col">Entregado</th>
+                        <th scope="col">Recibido</th>
+                        <th scope="col">CodVenta</th>
+                        <th scope="col">Actualizar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p :${formulario}">
+                        <td th:text="${p.codguiasalida}"></td>
+                        <td th:text="${p.descripcion}"></td>
+                        <td th:text="${p.fechasalida}"></td>
+                        <td th:text="${p.solicitado}"></td>
+                        <td th:text="${p.aprobado}"></td>
+                        <td th:text="${p.entregado}"></td>
+                        <td th:text="${p.recibido}"></td>
+                        <td th:text="${p.codventa}"></td>
+                        <td>
+                            <button type="button"
+                                class="btn btn-secondary btnactualizarguiasalida"
+                                th:data-codguiasalida="${p.codguiasalida}"
+                                th:data-descripcion="${p.descripcion}"
+                                th:data-fechasalida="${p.fechasalida}"
+                                th:data-solicitado="${p.solicitado}"
+                                th:data-aprobado="${p.aprobado}"
+                                th:data-entregado="${p.entregado}"
+                                th:data-recibido="${p.recibido}"
+                                th:data-codventae="${p.codventa}"><i class="fas fa-edit"></i></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btneliminarguiasalida"
+                                th:data-codguiasalida="${p.codguiasalida}"
+                                th:data-descripcion="${p.descripcion}"
+                                th:data-fechasalida="${p.fechasalida}"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	</div>
+ 
+    <!-- Modal Registrar y Actualizar GuiaSalida-->
+    <div class="modal fade" id="modalguiasalida" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header colormodal">
+                    <h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">GuiaSalida</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="txtnombre">Descripcion</label> 
+                                <input type="text" class="form-control" id="txtdescripcion" maxlength="40">
+                                <span id="errordescripcion" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txtfechasalida">FechaSalida</label> 
+                                <input type="number" class="form-control" id="txtfechasalida">
+                                <span id="errorfechasalida" class="text-danger"></span>
+                            </div><br>
+                            <div class="form-group col-md-6">
+                                <label for="txtsolicitado">Solicitado</label> 
+                                <input type="number" class="form-control" id="txtsolicitado">
+                                <span id="errorsolicitado" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txtaprobado">Aprobado</label> 
+                                <input type="text" class="form-control" id="txtaprobado">
+                                <span id="erroraprobado" class="text-danger"></span>
+                            </div><br>
+                            <div class="form-group col-md-6">
+                                <label for="txtsentregado">Entregado</label> 
+                                <input type="text" class="form-control" id="txtentregado">
+                                <span id="errorentregado" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txtrecibido">Recibido</label> 
+                                <input type="text" class="form-control" id="txtrecibido">
+                                <span id="errorrecibido" class="text-danger"></span>
+                            </div><br>
+                            <div class="form-group col-md-6">
+                                <label for="txtcodventa">CodVenta</label> 
+                                <input type="text" class="form-control" id="txtcodventa">
+                                <span id="errorcodventa" class="text-danger"></span>
+                            </div><br>
+                            <input type="hidden" id="hddcodguiasalida" value="0">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnregistrarguiasalida" class="btn btn-danger">Grabar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Modal Eliminar GuiaSalida -->
+    <div class="modal fade" id="modaleliminarguiasalida" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header colormodal">
+                    <h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">GuiaSalida</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label id="mensajeeliminar"></label>
+                    <input type="hidden" id="hddcodguiasalidaeliminar">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btneliminarguiasalida" class="btn btn-danger">Si, Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+	
+	<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+	<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+    
+</body>
+</html>

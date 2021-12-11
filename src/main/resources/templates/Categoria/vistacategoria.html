@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+
+<!-- Referencia: Hoja de estilo css -->
+<link rel="stylesheet" type="text/css" th:href="@{/DataTables/datatables.css}"/>
+<body>
+	<script type="text/javascript" th:src="@{/script/jsweb/categoria/vistacategoria.js}"></script>
+	<nav th:replace="layout::navegacion" ></nav>
+	   	<div class="container-productos">
+	  <div class="container-productos text-center">
+	  <br /><br />
+	<div class="card">
+		<div class="card-header badge-secondary text-center font-weight-bold">CATEGORIA</div>
+		<div class="card-body">
+
+				<button type="button" id="btnagregarcategoria" class="btn btnagregarstl">Nueva Categoria <i class="fas fa-plus-circle"></i></button> 
+				<a type="button" th:href="@{/Producto/vistaproducto}" class="btn btn-secondary">Productos Generales <i class="fas fa-arrow-alt-circle-left"></i></a>
+
+			<hr />
+			<table id="tblcategoria" class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Código</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Descripcion</th>
+						<th scope="col">Actualizar</th>
+						<th scope="col">Eliminar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="categoria :${formulario}">
+						<td th:text="${categoria.codcategoria}"></td>
+						<td th:text="${categoria.nombre}"></td>
+						<td th:text="${categoria.descripcion}"></td>
+						<td>
+							<button type="button" 
+								class="btn btn-secondary btnactualizarcategoria"
+								th:data-codcategoria="${categoria.codcategoria}"
+								th:data-nombre="${categoria.nombre}"
+								th:data-descripcion="${categoria.descripcion}"><i class="fas fa-edit"></i></button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-danger btneliminarcategoria"
+								th:data-codcategoria="${categoria.codcategoria}"
+								th:data-nombre="${categoria.nombre}"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</div>
+	</div>
+
+	
+	<!-- Modal Registrar y Actualizar Categoria -->
+	<div class="modal fade" id="modalcategoria" tabindex="100" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header colormodal">
+					<h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Categoria</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<!-- Row One -->
+								<div class="form-group">
+									<label for="txtnombre">Nombre</label> 
+									<input type="text" class="form-control" id="txtnombre" maxlength="40">
+									<span id="errornombre" class="text-danger"></span>
+								</div>
+							<!-- Row Two -->
+							<div class="form-group">
+								<label for="txtdescripcion">Descripcion</label> 
+								<textarea class="form-control" rows="4" id="txtdescripcion"></textarea>
+								<span id="errordescripcion" class="text-danger"></span>
+							</div>
+							<input type="hidden" id="hddcodcategoria" value="0">
+						</div>
+					</form>
+					<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+							<button type="button" id="btnregistrarcategoria" class="btn btn-danger">Grabar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal Eliminar Categoria -->
+	<div class="modal fade" id="modaleliminarcategoria" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header colormodal">
+					<h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Categoria</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<label id="mensajeeliminar">
+					</label>
+					<input type="hidden" id="hddcodcategoriaeliminar">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" id="btneliminarcategoria" class="btn btn-danger">Si, Eliminar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+	
+	<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+	<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+	
+</body>
+</html>

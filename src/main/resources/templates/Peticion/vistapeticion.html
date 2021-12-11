@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+
+<script type="text/javascript"
+    th:src="@{/script/jsweb/peticion/vistapeticion.js}"></script>
+    
+<!-- Referencia: Hoja de estilo css -->
+<link rel="stylesheet" type="text/css" th:href="@{/DataTables/datatables.css}"/>
+
+<body>
+	<nav th:replace="layout::navegacion" ></nav>
+	
+	<div class="container-productos">
+    <div class="card">
+        <div class="card-header badge-dark text-center font-weight-bold">PETICION</div>
+        <div class="card-body">
+
+            <button type="button" id="btnagregarpeticion" class="btn btnagregarstl">Nueva Peticion <i class="fas fa-plus-circle"></i></button>
+
+            <hr />
+            <table id="tblpeticion" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Asunto</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">CodCliente</th>
+                        <th scope="col">Actualizar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p :${formulario}">
+                        <td th:text="${p.codpeticion}"></td>
+                        <td th:text="${p.asunto}"></td>
+                        <td th:text="${p.descripcion}"></td>
+                        <td th:text="${p.imagen}"></td>
+                        <td th:text="${p.codcliente}"></td>
+                        <td>
+                            <button type="button"
+                                class="btn btn-secondary btnactualizarpeticion"
+                                th:data-codpeticion="${p.codpeticion}"
+                                th:data-asunto="${p.asunto}"
+                                th:data-descripcion="${p.descripcion}"
+                                th:data-imagen="${p.imagen}"
+                                th:data-codcliente="${p.codcliente}"><i class="fas fa-edit"></i></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btneliminarpeticion"
+                                th:data-codpeticion="${p.codpeticion}"
+                                th:data-asunto="${p.asunto}"
+                                th:data-descripcion="${p.descripcion}"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	</div>
+ 
+    <!-- Modal Registrar y Actualizar Peticion -->
+    <div class="modal fade" id="modalpeticion" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header colormodal">
+                    <h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Peticion</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="txtasunto">Asunto</label> 
+                                <input type="text" class="form-control" id="txtasunto" maxlength="40">
+                                <span id="errorasunto" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txtdescripcion">Descripcion</label> 
+                                <input type="text" class="form-control" id="txtdescripcion">
+                                <span id="errordescripcion" class="text-danger"></span>
+                            </div><br>
+                            <div class="form-group col-md-6">
+                                <label for="txtimagen">Imagen</label> 
+                                <input type="text" class="form-control" id="txtimagen">
+                                <span id="errorimagen" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txtcodcliente">CodCliente</label> 
+                                <input type="text" class="form-control" id="txtcodcliente">
+                                <span id="errorcodcliente" class="text-danger"></span>
+                            </div><br>
+                            <input type="hidden" id="hddcodcliente" value="0">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnregistrarpeticion" class="btn btn-danger">Grabar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Modal Eliminar Peticion -->
+    <div class="modal fade" id="modaleliminarpeticion" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header colormodal">
+                    <h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Peticion</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label id="mensajeeliminar"></label>
+                    <input type="hidden" id="hddcodpeticioneliminar">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btneliminarpeticion" class="btn btn-danger">Si, Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+	
+	<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+	<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+    
+</body>
+</html>

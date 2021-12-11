@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+
+<script type="text/javascript"
+    th:src="@{/script/jsweb/proveedor/vistaproveedor.js}"></script>
+    
+<!-- Referencia: Hoja de estilo css -->
+<link rel="stylesheet" type="text/css" th:href="@{/DataTables/datatables.css}"/>
+
+<body>
+	<nav th:replace="layout::navegacion" ></nav>
+	
+	<div class="container-productos">
+    <div class="card">
+        <div class="card-header badge-dark text-center font-weight-bold">PROVEEDORES</div>
+        <div class="card-body">
+
+            <button type="button" id="btnagregarproveedor" class="btn btnagregarstl">Nuevo Proveedor <i class="fas fa-plus-circle"></i></button>
+
+            <hr />
+            <table id="tblproveedor" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Direccion</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Actualizar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p :${formulario}">
+                        <td th:text="${p.codproveedor}"></td>
+                        <td th:text="${p.nombre}"></td>
+                        <td th:text="${p.direccion}"></td>
+                        <td th:text="${p.telefono}"></td>
+                        <td th:text="${p.correo}"></td>
+                        <td>
+                            <button type="button"
+                                class="btn btn-secondary btnactualizarproveedor"
+                                th:data-codproveedor="${p.codproveedor}"
+                                th:data-nombre="${p.nombre}"
+                                th:data-direccion="${p.direccion}"
+                                th:data-telefono="${p.telefono}"
+                                th:data-correo="${p.correo}"><i class="fas fa-edit"></i></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btneliminarproveedor"
+                                th:data-codproveedor="${p.codproveedor}"
+                                th:data-nombre="${p.nombre}"
+                                th:data-direccion="${p.direccion}"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	</div>
+ 
+    <!-- Modal Registrar y Actualizar Proveedor -->
+    <div class="modal fade" id="modalproveedor" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header colormodal">
+                    <h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Proveedor</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="txtnombre">Nombre</label> 
+                                <input type="text" class="form-control" id="txtnombre" maxlength="40">
+                                <span id="errornombre" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txtdireccion">Direccion</label> 
+                                <input type="text" class="form-control" id="txtdireccion">
+                                <span id="errordireccion" class="text-danger"></span>
+                            </div><br>
+                            <div class="form-group col-md-6">
+                                <label for="txttelefono">Telefono</label> 
+                                <input type="number" class="form-control" id="txttelefono">
+                                <span id="errortelefono" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txtcorreo">Correo</label> 
+                                <input type="text" class="form-control" id="txtcorreo">
+                                <span id="errorcorreo" class="text-danger"></span>
+                            </div><br>
+                            <input type="hidden" id="hddcodproveedor" value="0">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnregistrarproveedor" class="btn btn-danger">Grabar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Modal Eliminar Proveedor -->
+    <div class="modal fade" id="modaleliminarproveedor" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header colormodal">
+                    <h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Proveedor</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label id="mensajeeliminar"></label>
+                    <input type="hidden" id="hddcodproveedoreliminar">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btneliminarproveedor" class="btn btn-danger">Si, Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+	
+	<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+	<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+    
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+<title>list</title>
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/DataTables/datatables.css}"/>
+<body>
+
+
+
+<script th:src="@{/script/jsweb/master.js}"></script>
+<nav th:replace="layout::navegacion"></nav>
+	
+	<div class="container-productos">
+	<div class="container-productos">
+	<h2 style="font-weight: bold; text-align: center;">ORDENES DE COMPRA
+	
+	</h2>
+	
+	<br />
+	
+	<div class="card-header badge-secondary text-center font-weight-bold">ORDENES DE COMPRA</div>
+	<br/>
+	<a type="button" th:href="@{/ordencompra_registrar}" class="btn btn-secondary col-sm-2">Registrar Orden <i class="fas fa-plus-circle"></i></a>
+	<div class="card-body">
+	
+	
+	
+	<table id="tblinventario" class="table table-hover">
+		<thead>
+		<tr>
+			<th>CodOrdenCompra</th>
+			<th>Descripcion</th>
+			<th>Fecha</th>
+			<th>IGV</th>
+			<th>Total</th>
+			<th>CodUsuario</th>
+			<th>CodProveedor</th>
+			<th>Acción</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<tr th:each="entity:${bOrdenCompra}">
+			<td th:text="${entity.CodOrdenCompra}"></td>
+			<td th:text="${entity.Descripcion}"></td>
+			<td th:text="${entity.Fecha}"></td>
+			<td th:text="${entity.IGV}"></td>
+			<td th:text="${entity.Total}"></td>
+			<td th:text="${entity.CodUsuario}"></td>
+			<td th:text="${entity.CodProveedor}"></td>
+			<td>
+				<a type="button" class="btn btn-secondary" th:href="@{|/ordencompra_editar/${entity.CodOrdenCompra}|}">Editar</a> | 
+				<a type="button" class="btn btn-danger" th:href="@{|/ordencompra_borrar/${entity.CodOrdenCompra}|}">Eliminar</a>
+			</td>
+		</tr>	
+		</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	
+	
+<div th:replace="layout::pie"></div>
+<div th:replace="layout::flecha"></div>
+<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+</body>
+</html>

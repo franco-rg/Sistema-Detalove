@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+<body id="bodycolor">
+	<!--  <script type="text/javascript" th:src="@{/script/jsweb/producto/vistaproducto.js}"></script> -->
+	<script th:src="@{/script/jsweb/master.js}"></script>
+	<nav th:replace="layout::navegacion"></nav>
+
+
+	<div class="container-productos text-center">
+		<br />
+		<h2 th:text="${ubicar_producto.codproducto}" style="font-weight: bold;">REGISTRO</h2>
+		<span>Formulario de Actualizacion de <strong>Productos</strong></span><br />		
+	</div>
+	
+	
+	
+	<div class="container container-productos">
+		<form th:action="@{/Producto/actualizar_pro}" th:object="${ubicar_producto}" method="post" enctype="multipart/form-data">
+
+
+			<div style="max-width: 1000px;">
+				<div class="row no-gutters">
+					<div class="col-md-4">
+						<br /> <i class="fas fa-sync-alt"></i><br />
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+
+							<dl class="row">
+								<dt class="col-sm-3">Nombre</dt>
+								<dd class="col-sm-9">
+											<input th:field="*{nombre}" type="text" class="form-control" id="txtnombre" maxlength="40"> 
+											<span id="errornombre" class="text-danger"></span>
+								</dd>
+								
+								
+								<dt class="col-sm-3">Precio Unitario</dt>
+								<dd class="col-sm-9">
+										<input th:field="*{preciouni}" type="text" class="form-control" id="txtpreciouni"> 
+										<span id="errorpreciouni" class="text-danger"></span>
+								</dd>
+								
+								
+								<dt class="col-sm-3">Detalle</dt>
+								<dd class="col-sm-9">
+										<textarea th:field="*{detalle}" class="form-control"
+											rows="2" id="txtdetalle"></textarea>
+										<span id="errordetalle" class="text-danger"></span>
+								</dd>
+								
+								<dt class="col-sm-3">Tamaño</dt>
+								<dd class="col-sm-9">
+										<input th:field="*{tamano}" type="text" class="form-control" id="txttamaño" maxlength="40"> 
+										<span id="errortamano" class="text-danger"></span>
+								</dd>
+								
+								
+								<dt class="col-sm-3">Publico</dt>
+								<dd class="col-sm-9">
+										<select th:field="*{publico}"
+											class="form-control" id="txtpublico">
+											<option th:value="'No'+' Definido'">Seleccione Público</option>
+											<option th:value="Infantil">Infantil</option>
+											<option th:value="Familiar">Familiar</option>
+											<option th:value="Parejas">Parejas</option>
+											<option th:value="Amistades">Amistades</option>
+										</select>
+								</dd>
+								
+								
+								<dt class="col-sm-3">Imagen</dt>
+								<dd class="col-sm-9">
+										<input type="file" name="file" id="txtimagen" accept="image/*">
+								</dd>
+								
+								<dt class="col-sm-3">Categoria</dt>
+								<dd class="col-sm-9">
+										<select th:field="*{codcategoria}" class="form-control" id="cbocategoria">
+											<option value="0">Seleccione</option>
+											<option th:each="categoria :${listcategoria}"
+												th:text="${categoria.nombre}" th:value="${categoria.codcategoria}"></option>
+										</select>
+								</dd>
+								
+								
+								<dt class="col-sm-3">Estado</dt>
+								<dd class="col-sm-9">
+										<select
+											th:field="*{estado}" class="form-control" id="txtestado">
+											<option value="Activo">Activo</option>
+											<option th:value="Inactivo">Inactivo</option>
+											<option th:value="Suspendido">Suspendido</option>
+											<option value="En Proceso">En Proceso</option>
+										</select>
+								</dd>
+
+								<dt class="col-sm-8">
+									<br />
+									<button type="submit" class="btn btn-danger">
+										Grabar <i class="far fa-save"></i>
+									</button>
+									<a type="button" th:href="@{/Producto/vistaproducto/ver-producto/} + ${ubicar_producto.codproducto}" class="btn btn-dark">Cancelar <i class="fas fa-ban"></i></a> <br />
+									<br /> <br /> <br />
+								</dt>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	
+
+	<!-- ENLACES: PIE DE PAGINA - FLECHA DE DESPLAZAMIENTO-->
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+</body>
+</html>

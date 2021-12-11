@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+
+<!-- Referencia: Hoja de estilo css -->
+<link rel="stylesheet" type="text/css" th:href="@{/DataTables/datatables.css}"/>
+<body>
+	<script type="text/javascript" th:src="@{/script/jsweb/producto/vistaproducto.js}"></script>
+	<nav th:replace="layout::navegacion" ></nav>
+	
+	
+	  <div class="container-productos">
+	<div class="text-center font-weight-bold">
+		<br />
+		<h1 style="font-family: 'Times New Roman, Times, serif;'"><strong>TAZAS</strong></h1>
+		<hr>
+	</div>
+	</div>
+	
+
+	  <div class="container">
+		<div class="row">
+        <div class="card" th:each="producto :${listtazas}">
+            <img th:src="@{'/imagen-detalove/'+${producto.imagen}}">
+            <h5 th:text="${producto.nombre}"></h5>      
+            <p th:text="${producto.detalle}"></p>
+            <p style="font-weight: bold;" th:text="'Precio: S/.' + ${producto.preciouni} + ' - Estado: ' +  ${producto.estado}"></p>
+            
+            <div th:each="buscar :${product_select}">
+            </div>
+            <a th:href="@{/Producto/vistaproducto/ver-producto/}+${producto.codproducto}">
+            <button type="button" class="btn btn-danger">Ver  Producto</button></a>
+        </div>
+        </div>
+        <br/>
+        </div>
+	
+	
+	<!-- Modal Eliminar Producto -->
+	<div class="modal fade" id="modaleliminarproducto" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header colormodal">
+					<h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Producto</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<label id="mensajeeliminar">
+					</label>
+					<input type="hidden" id="hddcodproductoeliminar">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" id="btneliminarproducto" class="btn btn-danger">Si, Eliminar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+	
+	<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+	<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+	
+</body>
+</html>

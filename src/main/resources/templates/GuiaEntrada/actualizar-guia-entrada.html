@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+<body id="bodycolor">
+	<!--  <script type="text/javascript" th:src="@{/script/jsweb/producto/vistaproducto.js}"></script> -->
+	<script th:src="@{/script/jsweb/master.js}"></script>
+	<nav th:replace="layout::navegacion"></nav>
+
+	<div class="container-productos text-center">
+		<br />
+		<h2 th:text="${entrada_ubicada.codguiaentrada}" style="font-weight: bold;"></h2>
+		<span>Formulario de Actualizacion de <strong>Guias de Entrada</strong></span><br />
+		<br />
+	</div>
+
+
+	<div class="container container-productos">
+		<form th:action="@{/GuiaEntrada/actualizar_entrada}" th:object="${entrada_ubicada}" method="post">
+
+		<input type="hidden" th:field="*{codguiaentrada}">
+
+			<div style="max-width: 1000px;">
+				<div class="row no-gutters">
+					<div class="col-md-4">
+						<i class="fas fa-sync-alt"></i><br />
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+
+							<dl class="row">
+								<dt class="col-sm-3">Descripcion</dt>
+								<dd class="col-sm-9">
+									<div class="form-group">
+										<textarea th:field="*{descripcion}" class="form-control" 
+												  rows="3" id="txtdescripcion"></textarea>
+										<span id="errordescripcion" class="text-danger"></span>
+									</div>
+								</dd>
+
+								<dt class="col-sm-3">Fecha de Ingreso</dt>
+								<dd class="col-sm-9">
+									<div class="form-group">
+										<input type="date" th:field="*{fechaentrada}" class="form-control" id="fechadate">
+									</div>
+								</dd>
+
+								<dt class="col-sm-3">Proveedor</dt>
+								<dd class="col-sm-9">
+									<select th:field="*{codproveedor}" class="form-control"
+										id="cboproveedor">
+										<option value="0">Seleccione</option>
+										<option th:each="proveedor :${listprovee}"
+											th:text="${proveedor.nombre}"
+											th:value="${proveedor.codproveedor}"></option>
+									</select>
+								</dd>
+
+								<dt class="col-sm-3">Factura de Compra</dt>
+								<dd class="col-sm-9">
+									<select th:field="*{codfacturacompra}" class="form-control"
+										id="cbofacturacompra">
+										<option value="0">Seleccione</option>
+										<option th:each="facturacompra :${listfactcompra}"
+											th:text="${facturacompra.codfacturacompra}"
+											th:value="${facturacompra.codfacturacompra}"></option>
+									</select><br />
+								</dd>
+								<dt class="col-sm-3">Usuario</dt>
+								<dd class="col-sm-9">
+									<select th:field="*{codusuario}" class="form-control"
+										id="cbousuario">
+										<option value="0">Seleccione</option>
+										<option th:each="usuario :${listusuario}"
+											th:text="${usuario.nombreusuario}"
+											th:value="${usuario.codusuario}"></option>
+									</select>
+								</dd>
+
+								<dt class="col-sm-8">
+									<br />
+									<button type="submit" class="btn btn-danger">
+										Grabar <i class="far fa-save"></i>
+									</button>
+									<a type="button" th:href="@{/GuiaEntrada/vistaguiaentrada}" class="btn btn-dark">Cancelar <i class="fas fa-ban"></i></a> <br />
+									<br />
+									<br />
+									<br />
+								</dt>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!-- ENLACES: PIE DE PAGINA - FLECHA DE DESPLAZAMIENTO-->
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+</body>
+</html>

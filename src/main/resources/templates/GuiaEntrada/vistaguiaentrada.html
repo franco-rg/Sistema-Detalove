@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+
+<!-- Referencia: Hoja de estilo css -->
+<link rel="stylesheet" type="text/css" th:href="@{/DataTables/datatables.css}"/>
+<body>
+	<script type="text/javascript" th:src="@{/script/jsweb/guiaentrada/vistaguiaentrada.js}"></script>
+	<nav th:replace="layout::navegacion" ></nav>
+	
+	<div class="container-productos">
+	  <div class="container-productos">
+	  <div class="container-productos">
+	<div class="card">
+		<div class="card-header badge-secondary text-center font-weight-bold">
+		<h2 style="font-family: monospace; font-weight: bold;">GUIAS DE ENTRADA</h2>
+			
+		</div>
+		<div class="card-body">
+
+ 				<a type="button" th:href="@{/GuiaEntrada/vistaguiaentrada/registrar-guia-entrada}" id="btnagregarguiaentrada" class="btn btnagregarstl">Generar Nueva Guia <i class="fas fa-sign-out-alt"></i></a>
+<!-- 				<a type="button" th:href="@{/Producto/vistaproducto}" class="btn btn-secondary">Regresar a Productos <i class="fas fa-arrow-alt-circle-left"></i></a> -->
+
+			<hr />
+			<table id="tblguiaentrada" class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Código</th>
+						<th scope="col">Fecha Entrada</th>
+						<th scope="col">Cod. Proveedor</th>
+						<th scope="col">Cod. Factura Compra</th>
+						<th scope="col">Cod. Usuario</th>
+						<th scope="col">Producto</th>
+						<th scope="col">Estado</th>
+						<th scope="col">Inhabilitar</th>
+						<th scope="col">Informe</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="guiaentrada :${listSimple}">
+						<td th:text="${guiaentrada.codguiaentrada}"></td>
+						<td th:text="${guiaentrada.fechaentrada}"></td>
+						<td th:text="${guiaentrada.codproveedor}"></td>
+						<td th:text="${guiaentrada.codfacturacompra}"></td>
+						<td th:text="${guiaentrada.codusuario}"></td>
+						<td th:text="${guiaentrada.codproducto}"></td>
+						<td th:text="${guiaentrada.estado}"></td>
+						<td>
+							<button type="button" class="btn btn-danger btneliminarguiaentrada"
+								th:data-codguiaentrada="${guiaentrada.codguiaentrada}"><i class="fas fa-minus-circle"></i></button>
+						</td>
+						<td>
+							<a th:href="@{/GuiaEntrada/vistaguiaentrada/informe-guia-entrada/}+${guiaentrada.codguiaentrada}" type="button" style="background-color:  #474747; color: #fff" class="btn"><i class="far fa-file-pdf"></i></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	
+	<!-- Modal Inhabilitar Guia de Entrada -->
+	<div class="modal fade" id="modaleliminarguiaentrada" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-danger">
+					<h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Guia de Entrada</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<label id="mensajeeliminar">
+					</label>
+					<input type="hidden" id="hddcodguiaentradaeliminar">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" id="btneliminarguiaentrada" class="btn btn-danger">Si, Inhabilitar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+	
+	<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+	<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+	
+</body>
+</html>

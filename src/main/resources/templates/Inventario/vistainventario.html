@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+
+<!-- Referencia: Hoja de estilo css -->
+<link rel="stylesheet" type="text/css" th:href="@{/DataTables/datatables.css}"/>
+<body>
+	<script type="text/javascript" th:src="@{/script/jsweb/inventario/vistainventario.js}"></script>
+	<nav th:replace="layout::navegacion" ></nav>
+	
+	<div class="container-productos">
+	<div class="container-productos">
+	<div class="card">
+		<div class="card-header badge-secondary text-center font-weight-bold">
+			<h2 style="font-family: monospace; font-weight: bold;">INVENTARIO</h2>
+		</div>
+		<div class="card-body">
+
+ 				<a type="button" th:href="@{/Inventario/vistainventario/registrar-inventario}" id="btnagregarinventario" class="btn btnagregarstl">Nuevo Item <i class="fas fa-plus-circle"></i></a>
+<!-- 				<a type="button" th:href="@{/Producto/vistaproducto}" class="btn btn-secondary">Regresar a Productos <i class="fas fa-arrow-alt-circle-left"></i></a> -->
+
+			<hr />
+			<table id="tblinventario" class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Código</th>
+						<th scope="col">Cod. Guia Entrada</th>						
+						<th scope="col">Cod. Producto</th>
+						<th scope="col">Total Stock</th>
+						<th scope="col">Estado</th>
+						<th scope="col">Salida</th>
+						<th scope="col">Inhabilitar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="inventario :${listinventario}">
+						<td th:text="${inventario.codinventario}"></td>
+						<td th:text="${inventario.codguiaentrada}"></td>
+						<td th:text="${inventario.codproducto}"></td>
+						<td th:text="${inventario.cantidad}"></td>
+						<td th:text="${inventario.estado}"></td>
+						<td>
+							<button type="button" class="btn btn-secondary">
+								<i class="fas fa-caret-square-left"></i>
+							</button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-danger btneliminarinventario"
+								th:data-codinventario="${inventario.codinventario}"
+								th:data-descripcion="${inventario.descripcion}"><i class="far fa-times-circle"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</div>
+	</div>
+	
+	<!-- Modal Eliminar Categoria -->
+	<div class="modal fade" id="modaleliminarguiaentrada" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-danger">
+					<h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Inventario</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<label id="mensajeeliminar">
+					</label>
+					<input type="hidden" id="hddcodguiaentradaeliminar">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" id="btneliminarguiaentrada" class="btn btn-danger">Si, Inhabilitar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+	
+	<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+	<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+	
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+<title>register</title>
+</head>
+<body>
+	<script th:src="@{/script/jsweb/master.js}"></script>
+	<nav th:replace="layout::navegacion"></nav>
+	<br />
+	<div class="container-productos text-center">
+	<h2 style="font-weight: bold;">REGISTRO</h2>
+	<span>Formulario de Registro de <strong>Factura de Compra</strong></span>
+	<br/>
+	<hr />
+	</div>
+	
+
+	<div class="container-productos">
+	<div class="container container-productos">
+	
+	<form name="" method="post" th:object="${FacturaCompra}">
+	<div style="max-width: 1000px;">
+				<div class="row no-gutters">
+					<div class="col-md-4">
+					<br />
+						<i class="fab fa-wpforms"></i><br />
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+
+							<dl class="row">
+								<dt class="col-sm-3">CodFacturaCompra</dt>
+								<dd class="col-sm-9">
+									<div class="form-group">
+										<input class="form-control" type="text" th:field="*{CodFacturaCompra}"/>
+									</div>
+								</dd>
+
+								<dt class="col-sm-3">Descripcion</dt>
+								<dd class="col-sm-9">
+									<div class="form-group">
+										<input class="form-control" type="text" th:field="*{Descripcion}"/>
+									</div>
+								</dd>
+
+								<dt class="col-sm-3">Fecha de Ingreso</dt>
+								<dd class="col-sm-9">
+									<input class="form-control" type="date" th:field="*{Fecha}"/> <br>
+								</dd>
+
+								<dt class="col-sm-3">IGV</dt>
+								<dd class="col-sm-9">
+									<input class="form-control" type="number" th:field="*{IGV}" step="any"/>
+								</dd>
+								
+								
+								<dt class="col-sm-3">Total</dt>
+								<dd class="col-sm-9">
+									<input class="form-control" type="number" th:field="*{Total}" step="any"/>
+										
+								</dd>
+								
+								<dt class="col-sm-3">CodUsuario</dt>
+								<dd class="col-sm-9">
+									<input class="form-control" type="text" th:field="*{CodUsuario}"/>
+										
+								</dd>
+								
+								<dt class="col-sm-3">Cod Proveedor</dt>
+								<dd class="col-sm-9">
+									<input class="form-control" type="text" th:field="*{CodProveedor}"/>
+										
+								</dd>
+
+								<dt class="col-sm-8">
+									<br />
+									<button type="submit" class="btn btn-danger">Grabar <i class="far fa-save"></i>
+									</button>
+									<a type="button" th:onclick="|location.href='@{/facturacompra_listar}'|" 
+											class="btn btn-dark">Cancelar <i class="fas fa-ban"></i></a> <br />
+									<br />
+									<br />
+									<br />
+								</dt>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+	</form>
+	</div>
+	</div>
+	
+<div th:replace="layout::pie"></div>
+<div th:replace="layout::flecha"></div>
+<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+	
+</body>
+</html>

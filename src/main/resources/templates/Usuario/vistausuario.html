@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+
+<script type="text/javascript"
+    th:src="@{/script/jsweb/usuario/vistausuario.js}"></script>
+    
+<!-- Referencia: Hoja de estilo css -->
+<link rel="stylesheet" type="text/css" th:href="@{/DataTables/datatables.css}"/>
+
+<body>
+	<nav th:replace="layout::navegacion" ></nav>
+	
+	<div class="container-productos">
+    <div class="card">
+        <div class="card-header badge-dark text-center font-weight-bold">USUARIO</div>
+        <div class="card-body">
+
+            <button type="button" id="btnagregarusuario" class="btn btnagregarstl">Nuevo Usuario <i class="fas fa-plus-circle"></i></button>
+
+            <hr />
+            <table id="tblusuario" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Clave</th>
+                        <th scope="col">CodCargo</th>
+                        <th scope="col">CodCliente</th>
+                        <th scope="col">CodPeticion</th>
+                        <th scope="col">Actualizar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p :${formulario}">
+                        <td th:text="${p.codusuario}"></td>
+                        <td th:text="${p.nombreusuario}"></td>
+                        <td th:text="${p.clave}"></td>
+                        <td th:text="${p.codcargo}"></td>
+                        <td th:text="${p.codcliente}"></td>
+                        <td th:text="${p.codpeticion}"></td>
+                        <td>
+                            <button type="button"
+                                class="btn btn-secondary btnactualizarusuario"
+                                th:data-codusuario="${p.codusuario}"
+                                th:data-nombre="${p.nombreusuario}"
+                                th:data-clave="${p.clave}"
+                                th:data-cargo="${p.codcargo}"
+                                th:data-cliente="${p.codcliente}"
+                                th:data-peticion="${p.codpeticion}"><i class="fas fa-edit"></i></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btneliminarusuario"
+                                th:data-codusuario="${p.codusuario}"
+                                th:data-nombre="${p.nombreusuario}"
+                                th:data-clave="${p.clave}"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	</div>
+ 
+    <!-- Modal Registrar y Actualizar Usuario -->
+    <div class="modal fade" id="modalusuario" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header colormodal">
+                    <h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="txtnombre">Nombre</label> 
+                                <input type="text" class="form-control" id="txtnombre" maxlength="40">
+                                <span id="errornombre" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txtclave">Clave</label> 
+                                <input type="text" class="form-control" id="txtclave">
+                                <span id="errorclave" class="text-danger"></span>
+                            </div><br>
+                            <div class="form-group col-md-6">
+                                <label for="txtcargo">Cargo</label> 
+                                <input type="text" class="form-control" id="txtcargo">
+                                <span id="errorcargo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txtcliente">Cliente</label> 
+                                <input type="text" class="form-control" id="txtcliente">
+                                <span id="errorcliente" class="text-danger"></span>
+                            </div><br>
+                            <div class="form-group col-md-6">
+                                <label for="txtpeticion">Peticion</label> 
+                                <input type="text" class="form-control" id="txtpeticion">
+                                <span id="errorpeticion" class="text-danger"></span>
+                            </div><br>
+                            <input type="hidden" id="hddcodusuario" value="0">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnregistrarusuario" class="btn btn-danger">Grabar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Modal Eliminar Usuario -->
+    <div class="modal fade" id="modaleliminarusuario" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header colormodal">
+                    <h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label id="mensajeeliminar"></label>
+                    <input type="hidden" id="hddcodusuarioeliminar">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btneliminarusuario" class="btn btn-danger">Si, Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+	
+	<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+	<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+    
+</body>
+</html>

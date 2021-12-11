@@ -10,23 +10,94 @@ import edu.pe.idat.repository.ProductoRepository;
 
 @Service
 public class ProductoService {
+
 	@Autowired
 	private ProductoRepository llamar;
-	
-	public List<Producto> listar(){
+
+	public List<Producto> listarProductosxCategoria(String codcategoria) {
+		return llamar.listarProductosxCategoria(codcategoria);
+	}
+
+	public List<Producto> listar() {
 		return llamar.findAll();
 	}
-	
+
+	public List<Producto> listarCatCamisetas() {
+		return llamar.listarCatCamisetas();
+	}
+
+	public List<Producto> listarCatTazas() {
+		return llamar.listarCatTazas();
+	}
+
+	public List<Producto> listarCatAlmohadas() {
+		return llamar.listarCatAlmohadas();
+	}
+
+	public List<Producto> listarCatTomatodos() {
+		return llamar.listarCatTomatodos();
+	}
+
+	public List<Producto> listarCatJavas() {
+		return llamar.listarCatJavas();
+	}
+
+	public List<Producto> listarCatChops() {
+		return llamar.listarCatChops();
+	}
+
+	public List<Producto> listarCatFloral() {
+		return llamar.listarCatFloral();
+	}
+
+	// BUSCAR PRODUCTO
+	public Producto buscar_producto(String codigo) {
+		return llamar.buscar_producto(codigo);
+	}
+
 	public void registrarProducto(Producto producto) {
-		if(producto.getCodProducto()==null) {
-			llamar.registrarProducto(producto.getNombre(), producto.getPreciouni(), producto.getDetalle(), producto.getImagen(), producto.getCodcategoria());
+		if (producto.getCodproducto() == null) {
+			llamar.registrarProducto(producto.getNombre(), producto.getPreciouni(), producto.getDetalle(),
+					producto.getImagen(), producto.getTamano(), producto.getPublico(), producto.getEstado(),
+					producto.getCodcategoria());
+		} else {
+			llamar.actualizarProducto(producto.getCodproducto(), producto.getNombre(), producto.getPreciouni(),
+					producto.getDetalle(), producto.getImagen(), producto.getTamano(), producto.getPublico(),
+					producto.getEstado(), producto.getCodcategoria());
 		}
-		else {
-			llamar.actualizarProducto(producto.getCodProducto(), producto.getNombre(), producto.getPreciouni(), producto.getDetalle(), producto.getImagen(), producto.getCodcategoria());
-		}
+
+	}
+	
+	
+	public void actualizarProducto(Producto producto){
+		
+		llamar.actualizarProducto(producto.getCodproducto(), producto.getNombre(), producto.getPreciouni(), producto.getDetalle(),
+				producto.getImagen(), producto.getTamano(), producto.getPublico(), producto.getEstado(), producto.getCodcategoria());
 		
 	}
-	public void eliminarProducto(Producto producto) {
-		llamar.eliminarProducto(producto.getCodProducto());
+	
+	public void actualizarProducto_sinFoto(Producto producto){
+		
+		llamar.actualizarProducto_sinFoto(producto.getCodproducto(), producto.getNombre(), producto.getPreciouni(), producto.getDetalle(),
+					producto.getTamano(), producto.getPublico(), producto.getEstado(), producto.getCodcategoria());
+		
 	}
+	
+
+	
+	
+	public void eliminarProducto(String codigo){
+		llamar.eliminarProducto(codigo);
+	}
+	
+	
+	public void buscarProducto(Producto producto) {
+		llamar.buscarProducto(producto.getCodproducto());
+	}
+	
+	public void inhabilitar_Producto(Producto producto) {
+		llamar.inhabilitar_Producto(producto.getCodproducto());
+	}
+
+
 }

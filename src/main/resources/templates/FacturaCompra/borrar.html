@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>register</title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+
+<body id="bodycolor">
+	<script th:src="@{/script/jsweb/master.js}"></script>
+	<nav th:replace="layout::navegacion"></nav>
+	
+	<div class="container-productos text-center">
+		<br />
+		<h2 style="font-weight: bold;">ELIMINAR</h2>
+		<span>Eliminar elementos de <strong>Factura de Compra</strong></span><br />
+	</div>
+
+	
+	<form name="" method="post" th:object="${facturaCompra}">
+	
+		<div class="container-productos text-center">
+			<br />
+			<span>Se eliminara la factura de compra mostrada, <strong>¿estas de acuerdo?</strong></span><br /><br />
+			
+			CodFacturaCompra: <input class="form-control" type="text" th:field="*{CodFacturaCompra}" readonly="true"/> <br>
+			Descripcion: <input class="form-control" type="text" th:field="*{Descripcion}" readonly="true"/> <br>
+			<br />
+ 			<button type="submit" class="btn btn-danger">Si, Borrar <i class="far fa-times-circle"></i></button> |
+			<a type="button" th:onclick="|location.href='@{/facturacompra_listar}'|" class="btn btn-secondary">No, Cancelar <i class="fas fa-ban"></i></a>
+			<br /><br /><br />
+		</div>		
+	</form>
+	
+<div th:replace="layout::pie"></div>
+<div th:replace="layout::flecha"></div>
+<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	
+</body>
+</html>

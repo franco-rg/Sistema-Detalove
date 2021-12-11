@@ -21,7 +21,7 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public String login(@ModelAttribute("loginform") Login loginForm, 
+	public String login(@ModelAttribute("home") Login loginForm, 
 			Model model) {
 		if(loginForm.getUsuario().equals("d18159") && 
 				loginForm.getContraseña().equals("123456")) {

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+<body id="bodycolor">
+	<!--  <script type="text/javascript" th:src="@{/script/jsweb/producto/vistaproducto.js}"></script> -->
+	<script th:src="@{/script/jsweb/master.js}"></script>
+	<nav th:replace="layout::navegacion"></nav>
+
+	<div class="container-productos text-center">
+		<br />
+		<h2 style="font-weight: bold;">INVENTARIO</h2>
+		<span>Registro de Unidades <strong>Almaceneras.</strong></span><br />
+		<br />
+	</div>
+
+
+	<div class="container container-productos">
+		<form th:action="@{/Inventario/registrar_inventario}" th:object="${inventario_new}" method="post">
+
+
+			<div style="max-width: 1000px;">
+				<div class="row no-gutters">
+					<div class="col-md-4">
+						<br /> <i class="fas fa-truck-loading"></i><br />
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+
+							<dl class="row">
+								<dt class="col-sm-3">Descripcion</dt>
+								<dd class="col-sm-9">
+									<div class="form-group">
+										<textarea th:field="*{descripcion}" class="form-control" rows="3" id="txtdescripcion"></textarea>
+										<span id="errordescripcion" class="text-danger"></span>
+									</div>
+								</dd>
+
+
+								<dt class="col-sm-3">Estado</dt>
+								<dd class="col-sm-9">
+										<select th:field="*{estado}" class="form-control" id="txtestado">
+											<option th:value="Activo">Activo</option>
+											<option th:value="Inactivo">Inactivo</option>
+											<option th:value="Suspendido">Suspendido</option>
+											<option th:value="En+Proceso">En Proceso</option>
+										</select>
+								</dd>
+
+								<dt class="col-sm-3">Guia Entrada</dt>
+								<dd class="col-sm-9">
+									<select onchange="javascript:padreGuia()" th:field="*{codguiaentrada}" class="form-control" 
+											id="txtguiaentrada">
+											<option value="0" hidden>Seleccione</option>
+											<option th:each="entrada : ${list_guiaentrada}"
+													th:text="${entrada.codguiaentrada} + ' - ' + ${entrada.codproducto}"
+													th:value="${entrada.codguiaentrada}">
+											</option>
+											<option value="No es el caso">No es el caso</option>
+									</select>
+								</dd>
+
+								<dt class="col-sm-8">
+									<br />
+									<button type="submit" class="btn btn-danger">
+										Grabar <i class="far fa-save"></i>
+									</button>
+									<a type="button" th:href="@{/Inventario/vistainventario}"
+										class="btn btn-dark">Cancelar <i class="fas fa-ban"></i></a> <br />
+									<br /> <br /> <br />
+									
+									
+								</dt>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	
+	<script type="text/javascript">
+			
+		$(Document).on("click", "#botonmostrar", function () {
+			$.ajax({
+				type: "GET",
+				url : "/Inventario/registrar-inventario",
+				dataType: "json",
+				success: function(data) {
+					$(txproducto).val(value.codproducto)
+				},
+			});
+		})		
+
+	</script>
+	
+	
+	
+	
+	
+	
+
+	<!-- ENLACES: PIE DE PAGINA - FLECHA DE DESPLAZAMIENTO-->
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+</body>
+</html>

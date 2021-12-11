@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+
+<script type="text/javascript"
+    th:src="@{/script/jsweb/venta/vistaventa.js}"></script>
+    
+<!-- Referencia: Hoja de estilo css -->
+<link rel="stylesheet" type="text/css" th:href="@{/DataTables/datatables.css}"/>
+
+<body>
+	<nav th:replace="layout::navegacion" ></nav>
+	
+	<div class="container-productos">
+    <div class="card">
+        <div class="card-header badge-dark text-center font-weight-bold">VENTA</div>
+        <div class="card-body">
+
+            <button type="button" id="btnagregarventa" class="btn btnagregarstl">Nueva Venta <i class="fas fa-plus-circle"></i></button>
+
+            <hr />
+            <table id="tblventa" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">TipoDocumento</th>
+                        <th scope="col">FormaPago</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">IGV</th>
+                        <th scope="col">SubTotal</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">CodCliente </th>
+                        <th scope="col">Actualizar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p :${formulario}">
+                        <td th:text="${p.codventa}"></td>
+                        <td th:text="${p.tipodocumento}"></td>
+                        <td th:text="${p.formapago}"></td>
+                        <td th:text="${p.fecha}"></td>
+                        <td th:text="${p.igv}"></td>
+                        <td th:text="${p.subtotal}"></td>
+                        <td th:text="${p.total}"></td>
+                        <td th:text="${p.estado}"></td>
+                        <td th:text="${p.codcliente}"></td>
+                        <td>
+                            <button type="button"
+                                class="btn btn-secondary btnactualizarventa"
+                                th:data-codventa="${p.codventa}"
+                                th:data-tipodocumento="${p.tipodocumento}"
+                                th:data-formapago="${p.formapago}"
+                                th:data-fecha="${p.fecha}"
+                                th:data-igv="${p.igv}"
+                                th:data-subtotal="${p.subtotal}"
+                                th:data-total="${p.total}"
+                                th:data-estado="${p.estado}"
+                                th:data-codcliente="${p.codcliente}"><i class="fas fa-edit"></i></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btneliminarventa"
+                                th:data-codventa="${p.codventa}"
+                                th:data-tipodocumento="${p.tipodocumento}"
+                                th:data-formapago="${p.formapago}"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	</div>
+ 
+    <!-- Modal Registrar y Actualizar Venta -->
+    <div class="modal fade" id="modalventa" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header colormodal">
+                    <h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Venta</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="txtnombre">TipoDocumento</label> 
+                                <input type="text" class="form-control" id="txttipodocumento" maxlength="40">
+                                <span id="errortipodocumento" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txtformapago">FormaPago</label> 
+                                <input type="text" class="form-control" id="txtformapago">
+                                <span id="errorformapago" class="text-danger"></span>
+                            </div><br>
+                            <div class="form-group col-md-6">
+                                <label for="txtfecha">Fecha</label> 
+                                <input type="number" class="form-control" id="txtfecha">
+                                <span id="errorfecha" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txtigv">Igv</label> 
+                                <input type="text" class="form-control" id="txtigv">
+                                <span id="errorigv" class="text-danger"></span>
+                            </div><br>
+                            <div class="form-group col-md-6">
+                                <label for="txtsubtotal">Subtotal</label> 
+                                <input type="number" class="form-control" id="txtsubtotal">
+                                <span id="errorsubtotal" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="txttotal">Total</label> 
+                                <input type="text" class="form-control" id="txttotal">
+                                <span id="errortotal" class="text-danger"></span>
+                            </div><br>
+                            <div class="form-group col-md-6">
+                                <label for="txtestado">Estado</label> 
+                                <input type="text" class="form-control" id="txtestado">
+                                <span id="errorestado" class="text-danger"></span>
+                            </div><br>
+                            <div class="form-group col-md-6">
+                                <label for="txtcodcliente">CodCliente</label> 
+                                <input type="text" class="form-control" id="txtcodcliente">
+                                <span id="errorcodcliente" class="text-danger"></span>
+                            </div>  
+                            <input type="hidden" id="hddcodventa" value="0">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnregistrarventa" class="btn btn-danger">Grabar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Modal Eliminar Venta -->
+    <div class="modal fade" id="modaleliminarventa" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header colormodal">
+                    <h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Venta</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label id="mensajeeliminar"></label>
+                    <input type="hidden" id="hddcodventaeliminar">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btneliminarventa" class="btn btn-danger">Si, Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    
+	<div th:replace="layout::pie"></div>
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+	
+	<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+	<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+    
+</body>
+</html>

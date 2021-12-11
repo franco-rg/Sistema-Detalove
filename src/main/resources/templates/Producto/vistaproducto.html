@@ -4,142 +4,97 @@
 <meta charset="UTF-8">
 <title th:text="${titulo}"></title>
 </head>
-<link rel="stylesheet" th:href="@{/css/styles/master.css}">
 <link rel="stylesheet" th:href="@{/css/css/all.min.css}">
-<script type="text/javascript" th:src="@{/script/jsweb/producto/vistaproducto.js}"></script>
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+<!-- Referencia: Hoja de estilo css -->
+<link rel="stylesheet" type="text/css" th:href="@{/DataTables/datatables.c	ss}"/>
 <body>
-	<script type="text/javascript" th:src="@{/script/jquery/jQuery_v3.6.0.js}"></script>
-	<script type="text/javascript" th:src="@{/script/bootstrap/bootstrap.bundle.js}"></script>
-	<script th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript" th:src="@{/script/jsweb/producto/vistaproducto.js}"></script>
 	<nav th:replace="layout::navegacion" ></nav>
 	
-	<main class="container-productos">
-	<div class="card">
-		<div class="card-header badge-secondary text-center font-weight-bold">PRODUCTOS</div>
-		<div class="card-body">
-
-				<div class="row">
-					<div class="col-9">
-						<!-- ACA SE PUEDE COLOCAR UN ELEMENTO -->
-					</div>
-					<div class="col-3">
-						<div>
-							<a class="btn btn-info" id="btnagregarproducto" type="button">Nuevo Registro <i class="fas fa-plus-circle"></i></a>
-						</div>
-					</div>
-				</div>
-
-
-				<!-- <button type="button" id="btnagregarproducto" class="btn btn-info"><i class="fas fa-minus-circle"></i>Nuevo Producto</button> -->
-
-			<hr />
-			<table id="tblproducto" class="table">
-				<thead>
-					<tr>
-						<th scope="col">Código</th>
-						<th scope="col">Nombre</th>
-						<th scope="col">Precio Unidad</th>
-						<th scope="col">Detalle</th>
-						<th scope="col">Cod. Categoría</th>
-						<th scope="col">Imágen</th>
-						<th scope="col">Actualizar</th>
-						<th scope="col">Eliminar</th>
-					</tr>
-				</thead>
-				<!-- <td th:text="${producto.imagen}"></td> -->
-				<tbody>
-					<tr th:each="producto :${formulario}">
-						<!-- <td> <img th:src="" height="100" width="100" /></td> -->
-						<td th:text="${producto.CodProducto}"></td>
-						<td style="text-align: left" th:text="${producto.nombre}"></td>
-						<td th:text="${producto.preciouni}"></td>
-						<td style="text-align: left" th:text="${producto.detalle}"></td>
-						<td th:text="${producto.codcategoria}"></td>
-						<td th:text="${producto.imagen}"></td>
-						<td>
-							<button type="button" 
-								class="btn btn-secondary btnactualizarproducto"
-								th:data-codproducto="${producto.CodProducto}"
-								th:data-nombre="${producto.nombre}"
-								th:data-preciouni="${producto.preciouni}"
-								th:data-detalle="${producto.detalle}"
-								th:data-imagen="${producto.imagen}"
-								th:data-codcategoria="${producto.codcategoria}"><i class="fas fa-edit"></i></button>
-						</td>
-						<td>
-							<button type="button" class="btn btn-danger btneliminarproducto"
-								th:data-codproducto="${producto.CodProducto}"
-								th:data-nombre="${producto.nombre}"><i class="fas fa-trash-alt"></i></button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+	<div class="container-productos">
+	<div class="text-center font-weight-bold">
+		<br />
+		<h2 style="color: #c9c9c9;"><strong>PRODUCTOS GENERALES</strong></h2>
+		<span>Mostrando Todos los Productos</span>
+		<hr>
+		<a type="button" th:href="@{/Producto/registrarproducto}" class="btn btn-secondary">Registrar Productos <i class="fas fa-plus-circle"></i></a>
+		<a type="button" th:href="@{/Categoria/vistacategoria}" class="btn btn-danger">Ir a Categorias <i class="fas fa-angle-double-right"></i></a> 
+				
 	</div>
-	</main>
+	</div>
 	
-	<!-- Modal Registrar y Actualizar Productos -->
-	<div class="modal fade" id="modalproducto" tabindex="100" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+	  <div class="container">
+        <div class="card" th:each="producto :${formulario}">
+            <img th:src="@{'/imagen-detalove/'+${producto.imagen}}">
+            <h4 th:text="${producto.nombre}"></h4>      
+            <p th:text="${producto.detalle}"></p>
+            <span class="badge badge-primary"></span>
+            <label style="font-weight: bold;" th:text="'Precio: S/.' + ${producto.preciouni}"></label>
+            
+            <div th:each="buscar :${product_select}">
+            </div>
+            <a th:href="@{/Producto/vistaproducto/ver-producto/}+${producto.codproducto}">
+            <button type="button" class="btn btn-danger">Saber más</button></a>
+        </div>
+        <br/>
+        </div>
+	  
+	
+	
+	<!-- Modal Info Producto -->
+	<div class="modal fade" id="modalinfoproducto" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header bg-danger">
+				<div class="modal-header colormodal">
 					<h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Producto</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
 					<form>
 						<div class="form-group">
-							<!-- Row One -->
-							<div class="row">
-								<div class="col-md-6">
-									<label for="txtnombre">Nombre</label> 
-									<input type="text" class="form-control" id="txtnombre" maxlength="40">
-									<span id="errornombre" class="text-danger"></span>
+								<!-- Row One -->
+								<div class="form-group mitad">
+									<label for="txtimagen"></label>
+									<img th:src="@{producto.imagen}" height="100" width="100" id="txtimagen">
 								</div>
-								<div class="col-md-6">
-									<label for="txtpreciouni">Precio Unitario</label> 
-									<input type="number" class="form-control" id="txtpreciouni">
-									<span id="errorpreciouni" class="text-danger"></span>
-								</div><br>
-							</div>
-							<!-- Row Two -->
-							<div class="form-group">
-								<label for="txtdetalle">Detalle</label> 
-								<textarea class="form-control" rows="4" id="txtdetalle"></textarea>
-								<span id="errordetalle" class="text-danger"></span>
-							</div>
-							<!-- Three Two -->
-							<div class="row">
-								<div class="col-md-6">
-									<label for="txtimagen">Imagen</label> 
-									<input type="text" class="form-control" id="txtimagen">
-								</div><br>
-								<div class="col-md-6">
-									<label for="txtcodcategoria">Categoria</label> 
-									<input type="text" class="form-control" id="txtcodcategoria">
-									<span id="errorcategoria" class="text-danger"></span>
+							
+								<!-- Row Two -->
+								<div class="form-group">
+									<label for="txtcodproducto">Informacion del Producto</label> 
+									<label id="txtcodproducto"></label>
 								</div>
-							</div>
-							<input type="hidden" id="hddcodproducto" value="0">
+								
+								<!-- Row Three -->
+								<div class="form-group">
+									<label for="txtdescripcion"></label> 
+									<label id="txtdescripcion"></label>
+								</div>
+								
+								
+							<input type="hidden" id="hddcodproducto">
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					<button type="button" id="btnregistrarproducto" class="btn btn-danger">Grabar</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	
+
 	<!-- Modal Eliminar Producto -->
 	<div class="modal fade" id="modaleliminarproducto" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header bg-danger">
+				<div class="modal-header colormodal">
 					<h5 class="modal-title font-weight-bold text-white" id="exampleModalLabel">Producto</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
@@ -158,8 +113,14 @@
 			</div>
 		</div>
 	</div>
+
 	<div th:replace="layout::pie"></div>
 	<div th:replace="layout::flecha"></div>
 	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript" th:src="@{/DataTables/datatables.js}"></script>
+	
+	<!-- SCRIPT: Lenguaje de Busqueda y Paginacion -->
+	<script type="text/javascript" th:src="@{/script/jsweb/internalization.js}"></script>
+	
 </body>
 </html>

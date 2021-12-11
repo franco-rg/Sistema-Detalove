@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
 <meta charset="UTF-8">
-<title th:text="${titulo}"></title>
+<title>Detalove</title>
+<link rel="icon" th:href="@{/icon/logo-detalove-icon.ico}">
 <script type="text/javascript"
 	th:src="@{/script/jquery/jQuery_v3.6.0.js}"></script>
 <script type="text/javascript"
@@ -13,76 +14,62 @@
 <script th:src="@{/script/jsweb/master.js}"></script>
 </head>
 <body>
+
+
+	<div class="encabezado-central">
 	<nav th:fragment="navegacion">
 		<div class="logo"><img th:src="@{/img/detalogo3.png}" alt=""></div>
 		<ul>
-			<li><a class="text-white" href="/login"><i class="fas fa-home"></i> Menu</a></li>
+			<li><a class="text-white" href="/menu"><i class="fas fa-home"></i> Menu</a></li>
 			<li>
 				<a th:href="@{/Producto/vistaproducto}"><i class="fas fa-th-large"></i> Productos</a>
 				<ul>
-					<li><a href="#">Camisetas</a></li>
-					<li><a href="#">Tazas</a></li>
-					<li><a href="#">Almohadas</a></li>
-					<li><a href="#">Tomatodos</a></li>
-					<li><a href="#">Javas Cheleras</a></li>
-					<li><a href="#">Chops</a></li>
+					<li><a th:href="@{/Producto/camisetas}">Camisetas</a></li>
+					<li><a th:href="@{/Producto/tazas}">Tazas</a></li>
+					<li><a th:href="@{/Producto/almohadas}">Almohadas</a></li>
+					<li><a th:href="@{/Producto/tomatodos}">Tomatodos</a></li>
+					<li><a th:href="@{/Producto/javas}">Javas Cheleras</a></li>
+					<li><a th:href="@{/Producto/chops}">Chops</a></li>
+					<li><a th:href="@{/Producto/floral}">Rosas</a></li>
 				</ul>
 			</li>
-			<li><a href="#"><i class="fas fa-shopping-bag"></i> Compras</a></li>
-			<li><a href="#"><i class="fas fa-chart-line"></i> Ventas</a></li>
-			<li><a href="#"><i class="fas fa-warehouse"></i> Almacen</a></li>
-			<li><a href="#"><i class="fas fa-users"></i> RRHH</a></li>
+			<li>
+				<a href="#"><i class="fas fa-shopping-bag"></i> Compras</a>
+				<ul>
+					<li><a th:href="@{/Proveedor/vistaproveedor}">Proveedor</a></li>
+					<li><a th:href="@{/ordencompra_listar}">O. de Compra</a></li>
+				</ul>
+			</li>
+			<li>
+				<a th:href="@{/Venta/vistaventa}"><i class="fas fa-chart-line"></i> Ventas</a>
+				<ul>
+					<li><a th:href="@{/Cliente/vistacliente}">Cliente</a></li>
+					<li><a th:href="@{/Peticion/vistapeticion}">Peticiones</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#"><i class="fas fa-warehouse"></i> Almacen</a>
+				<ul>
+					<li><a th:href="@{/GuiaEntrada/vistaguiaentrada}">Guias de Entrada</a></li>
+					<li><a th:href="@{/Inventario/vistainventario}">Inventario</a></li>
+				</ul>
+			</li>
+			
+			<li>
+				<a href="#"><i class="fas fa-users"></i> RRHH</a>
+				<ul>
+					<li><a th:href="@{/Cargo/vistacargo}">Cargos</a></li>
+					<li><a th:href="@{/Usuario/vistausuario}">Usuario</a></li>
+				</ul>
+			</li>
 		</ul>
-		
 	</nav>
+	</div>
+
 
 	
-
-	<!--<nav th:fragment="menu"
-		class="navbar navbar-expand-lg navbar-dark bg-danger">
-		<a class="navbar-brand font-weight-bold text-center" href="#">DETALOVE</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">Menu
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item dropdown active"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Articulos </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="@{/Curso/frmListarCurso}">Polos</a>
-						<a class="dropdown-item" href="#">Tazas</a> <a
-							class="dropdown-item" href="#">Almohadas</a> <a
-							class="dropdown-item" href="#">Tazas</a> <a class="dropdown-item"
-							href="#">Rosas</a> <a class="dropdown-item" href="#">Tomatodos</a>
-						<a class="dropdown-item" href="#">Javas Cheleras</a> <a
-							class="dropdown-item" href="#">Chops</a>
-					</div>
-				<li class="nav-item active"><a class="nav-link" href="#">Compras
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item active"><a class="nav-link" href="#">Ventas
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item active"><a class="nav-link" href="#">Almacen
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item active"><a class="nav-link" href="#">RRHH
-						<span class="sr-only">(current)</span>
-				</a></li>
-			</ul>
-		</div>
-	</nav> -->
-
 	<div th:fragment="menu" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+	<div class="container-productos">
 			<div class="carousel-inner">
 				<div class="carousel-item active">
 					<img src="img/fondo/banner_1.jpg" class="d-block w-100" alt="">
@@ -104,6 +91,15 @@
 				<span class="carousel-control-next-icon" aria-hidden="true"></span>
 				<span class="sr-only">Next</span>
 			</a>
+	</div>
+	</div>
+	
+	<div th:fragment="animacion-text" class="text-movimiento">
+		<p>Somos, </p>
+		<ul>
+			<li>Detalove</li>
+			<li>Tu y Yo</li>
+		</ul>
 	</div>
 
 	<div th:fragment="menu" align="center">
@@ -151,69 +147,33 @@
 		<h3 class="font-sans-serif">
 			<strong style="color: #e81a2b;">★ TUS PRODUCTOS FAVORITOS ★</strong>
 		</h3>
-	</div>
-		<!-- <div th:fragment="menu" align="center">
-			<br>
-			<div class="container">
-				<div class="row">
-					<div class="col-lg">
-						<div class="card" style="width: 18rem;">
-							<img src="img/almohada-1.jpg" class="card-img-top" alt="">
-					  		<div class="card-body">
-					    		<p class="card-text">Almohadas Personalizadas</p>
-					  		</div>
-	  					</div>
-	  				</div>
-	  				
-	  				<div class="col-lg">
-						<div class="card" style="width: 18rem;">
-							<img src="img/polo-hombre.jpg" class="card-img-top" alt="">
-					  		<div class="card-body">
-					  			<p class="card-text">Polos Personalizados</p>
-					  		</div>
-	  					</div>
-	  				</div>
-	  				
-	  				<div class="col-lg">
-						<div class="card" style="width: 18rem;">
-							<img src="img/ramos-1.jpg" class="card-img-top" alt="">
-					  		<div class="card-body">
-					    		<p class="card-text">Box de 24 Rosas</p>
-					  		</div>
-	  					</div>
-	  					<br>
-	  				</div>	  				
-	  			</div>
-			</div>
-		</div>-->
-		
+	</div>		
 		
 		<div th:fragment="menu" class="container">
        
        
        <div class="container">
-				<div class="row">
+		<div class="row">
         <div class="card">
-            <img src="img/almohada-1.jpg">
+            <img src="img/ALMOHADA-ANIVERSARIO-INFINITO.png">
             <h4>Almohadas Personalizadas</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
+            <p>¡Qué esta semana no se te olvide de soprenderla(o) con un detalle acojinado!😍</p>
             <a href="#"><button type="button" class="btn btn-danger">Saber más</button></a>
         </div>
         
         <div class="card">
             <img src="img/polo-hombre.jpg">
             <h4>Polos Personalizados</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
+            <p>¡Sorprende con un polo personalizado para demostrar todo tu amor! 😍</p>
             <a href="#"><button type="button" class="btn btn-danger">Saber más</button></a>
         </div>
         
         <div class="card">
-            <img src="img/ramos-1.jpg">
-            <h4>Box de 24 Rosas</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, excepturi unde?</p>
+            <img src="img/TAZA-GRADUACION-FELICIDADES.png">
+            <h4>Tazas Personalizadas</h4>
+            <p>Marca con un detalle esos momentos mas importantes para esa persona ❤️</p>
             <a href="#"><button type="button" class="btn btn-danger">Saber más</button></a>
         </div>
-        
     </div>
     </div>
     </div>
@@ -330,15 +290,15 @@
 		
 		<ul class="footer-right">
 			<li>
-				<h5><a href="#" class="font-weight-bold text-white">PRODUCTOS</a></h5>
+				<h5><a th:href="@{Producto/vistaproducto}" class="font-weight-bold text-white">PRODUCTOS</a></h5>
 				
 				<ul class="box">
-					<li><a href="#">Camisetas</a></li>
-					<li><a href="#">Tazas</a></li>
-					<li><a href="#">Almohadas</a></li>
-					<li><a href="#">Tomatodos</a></li>
-					<li><a href="#">Javas Cheleras</a></li>
-					<li><a href="#">Chops</a></li>
+					<li><a th:href="@{/Producto/camisetas}">Camisetas</a></li>
+					<li><a th:href="@{/Producto/tazas}">Tazas</a></li>
+					<li><a th:href="@{/Producto/almohadas}">Almohadas</a></li>
+					<li><a th:href="@{/Producto/tomatodos}">Tomatodos</a></li>
+					<li><a th:href="@{/Producto/javas}">Javas Cheleras</a></li>
+					<li><a th:href="@{/Producto/chops}">Chops</a></li>
 				</ul>
 			</li>
 			

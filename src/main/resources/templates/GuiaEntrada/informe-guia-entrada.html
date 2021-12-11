@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<link rel="stylesheet" th:href="@{/css/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles/master.css}">
+<body style="background-color: #fff;">
+	<!--  <script type="text/javascript" th:src="@{/script/jsweb/producto/vistaproducto.js}"></script> -->
+	<script th:src="@{/script/jsweb/master.js}"></script>
+
+
+	<div>
+	<br/>
+		<div class="row no-gutters">
+			<div th:each="entrada :${entrada_ubicada}">
+ 				
+ 				<div class="col-11">
+				<div style="border-color: #808080; border-radius: 8px" class="card col-12">
+					<div class="card-body">
+						<br />
+						<br />
+						<img th:src="@{/img/codigo-barra.jpg}"> <br />
+						<h2
+							th:text="'Informe de Guia de Entrada N° ' + ${entrada_ubicada.codguiaentrada}"
+							style="font-family: 'Times New Roman, Times, serif;'"></h2><hr class="col-sm-4"/>
+						<span>La informacion mostrada a continuacion corresponde a
+							la Guia de Entrada seleccionada.</span><br /> <span
+							th:text="'Esta Guia de Entrada fue generada el ' + ${entrada_ubicada.fechaentrada} +  ' por el usuario ' + ${entrada_ubicada.nombre_usuario} + ' con codigo ' + ${entrada_ubicada.codusuario} + '.'"></span><br />
+						<br />
+
+						<dl class="row">
+							<dt class="col-3">Codigo</dt>
+							<dd th:text="${entrada_ubicada.codguiaentrada}" class="col-sm-9"></dd>
+
+							<dt class="col-3">Informacion u Observaciones</dt>
+							<dd style="font-style: italic;"
+								th:text="${entrada_ubicada.descripcion}" class="col-sm-9"></dd>
+
+							<dt class="col-3">Producto Ingresado</dt>
+							<dd
+								th:text="${entrada_ubicada.codproducto} + ' (' +  ${entrada_ubicada.nombre_producto} + ')'"
+								class="col-sm-9"></dd>
+
+							<dt class="col-3">Unidades Ingresadas</dt>
+							<dd th:text="${entrada_ubicada.cantidad}" class="col-sm-9"></dd>
+
+							<dt class="col-3">Fecha Ingreso</dt>
+							<dd th:text="${entrada_ubicada.fechaentrada}" class="col-sm-9"></dd>
+
+							<dt class="col-3">Proveedor</dt>
+							<dd
+								th:text="${entrada_ubicada.codproveedor} + ' (' + ${entrada_ubicada.nombre_proveedor} + ')'"
+								class="col-sm-9"></dd>
+
+							<dt class="col-3">Estado de la Guia (Validez)</dt>
+							<dd th:text="${entrada_ubicada.estado}" class="col-sm-9"></dd>
+
+							<dt style="text-decoration: underline; font-size: 23px;"
+								class="col-sm-12">Pago</dt>
+							<br />
+							<br />
+
+							<dt class="col-3">Factura Compra</dt>
+							<dd th:text="${entrada_ubicada.codfacturacompra}"
+								class="col-sm-9"></dd>
+
+							<dt class="col-3">Fecha de Pago</dt>
+							<dd th:text="${entrada_ubicada.fecha_factura}" class="col-sm-9"></dd>
+
+							<dt class="col-3">Monto Total</dt>
+							<dd th:text="'S/. ' + ${entrada_ubicada.monto_factura}"
+								class="col-sm-9"></dd>
+
+
+							<!-- 							<dt class="col-sm-3">Precio Unitario</dt> -->
+							<!-- 							<dd class="col-sm-7"> -->
+							<!-- 								<div class="form-group" th:object=${product_select}> -->
+							<!-- 									<input th:field="*{preciouni}" type="text" class="form-control" -->
+							<!-- 										readonly="readonly"> -->
+							<!-- 								</div> -->
+							<!-- 							</dd> -->
+
+							<!-- 							<dt class="col-sm-3">Informacion</dt> -->
+							<!-- 							<dd th:text="${product_select.detalle}" class="col-sm-9"></dd> -->
+
+
+							<!-- 							<dt class="col-sm-3">Estado</dt> -->
+							<!-- 							<dd th:text="${product_select.estado}" class="col-sm-9"></dd> -->
+
+							<!-- 							<dt class="col-sm-3">Categoria</dt> -->
+							<!-- 							<dd th:text="${product_select.codcategoria}" class="col-sm-9"></dd> -->
+						</dl>
+						<input class="btn btn-danger" type="submit" value="Imprimir"
+							onclick="javascript:window.print()" /><br/><br/>
+						<img th:src="@{/img/marca.png}" style="float: right;">
+					</div>
+				</div></div>
+			</div>
+		</div>
+
+	</div>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+
+
+	<!-- Modal Eliminar Categoria -->
+	<div class="modal fade" id="modaleliminarproducto" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header colormodal">
+					<h5 class="modal-title font-weight-bold text-white"
+						id="exampleModalLabel">Categoria</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<label id="mensajeeliminar"> </label> <input type="hidden"
+						id="hddcodproductoeliminar">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cancelar</button>
+					<button type="button" id="btneliminarproducto"
+						class="btn btn-danger">Si, Inhabiltar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+	<!-- ENLACES: PIE DE PAGINA - FLECHA DE DESPLAZAMIENTO-->
+	<div th:replace="layout::flecha"></div>
+	<script type="text/javascript" th:src="@{/script/jsweb/master.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/script/jsweb/producto/vistaproducto.js}"></script>
+</body>
+</html>
